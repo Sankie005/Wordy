@@ -89,13 +89,45 @@ def autocomplete_initializer():
 def accept_suggestion(event=None):
     print("suggestion accepted")
     current_text = textbox.get("1.0", "end-1c")  # Get the current text content
-    words = current_text.split()  # Split the text into words
-    if not words:
-        return
-    words[len(words)-1] = topsuggestion_refined  # Replacing with word
-    modified_text=" ".join(words)
-    textbox.delete("1.0", "end")  # Delete the current text
-    textbox.insert("1.0", modified_text)  # Insert the modified tet
+    lines = current_text.splitlines()
+    if len(lines) > 0:
+    # Split the last line into words using spaces as separators
+        last_line_words = lines[-1].split()
+
+    # Check if there are words in the last line
+        if len(last_line_words) > 0:
+            # Pop the last word from the last line
+            last_line_words.pop()
+
+            # Append a new word
+            new_word = topsuggestion_refined
+
+            # Add the new word to the last line
+            last_line_words.append(new_word)
+
+            # Join the words back together into a modified last line
+            modified_last_line = " ".join(last_line_words)
+
+            # Replace the last line with the modified last line in the list of lines
+            lines[-1] = modified_last_line
+
+            # Join the lines back together with newline characters while preserving formatting
+            modified_text = "\n".join(lines)
+
+            textbox.delete("1.0", "end")  # Delete the current text
+            textbox.insert("1.0", modified_text)  # Insert the modified tet
+            
+
+
+
+
+   ## words = current_text.split()  # Split the text into words #Legacy code #
+   ## if not words:
+   ##     return
+  ##  words[len(words)-1] = topsuggestion_refined  # Replacing with word
+   ## modified_text=" ".join(words)
+    ##textbox.delete("1.0", "end")  # Delete the current text
+    ##textbox.insert("1.0", modified_text)  # Insert the modified tet
 
 
 
