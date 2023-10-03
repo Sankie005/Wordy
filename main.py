@@ -209,7 +209,7 @@ class App(customtkinter.CTk):
         
 
         self.summary_var=customtkinter.StringVar()
-        self.summary_display = customtkinter.CTkLabel(self, textvariable=self.summary_var,wraplength=800,justify='right')
+        self.summary_display = customtkinter.CTkLabel(self, textvariable=self.summary_var,wraplength=800,justify='left')
         self.summary_var.set("Summary: ")
         self.summary_display.grid(row=1,column=0,padx=20,pady=20,columnspan=5,sticky='w')
         
