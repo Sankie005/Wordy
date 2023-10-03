@@ -1,4 +1,8 @@
-# Wordy
+# Wordy 
+
+![wordy logo](https://github.com/Sankie005/Wordy/blob/main/Wordy%20logo.png)
+
+
 A word processor built using customtkinter with powerful features like autocomplete
 ***
 ![Wordy demo](https://github.com/Sankie005/Wordy/blob/main/Wordy.png)
