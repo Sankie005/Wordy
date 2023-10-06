@@ -11,7 +11,15 @@ class App(customtkinter.CTk):
     text_box_height=720
     text_box_width=1280
     
-
+    def themeswitcher(self,value):
+        if value=="Dark":
+            customtkinter.set_appearance_mode("dark")
+        elif value=="Light":
+            customtkinter.set_appearance_mode("light")
+        elif value=="System":
+            customtkinter.set_appearance_mode("system")
+        else :
+            print("Invalid Theme Option")
 
     
     
@@ -192,30 +200,35 @@ class App(customtkinter.CTk):
     
         self.file_menu=customtkinter.CTkOptionMenu(self,values=["Save","Open"],command=self.file_menu_action)
         self.file_menu.set("Save")
-        self.file_menu.grid(row=0,column=0,padx=20,pady=20,columnspan=1,sticky='w')
+        self.file_menu.grid(row=0,column=0,columnspan=1,sticky='w')
 
         self.summary_menu=customtkinter.CTkOptionMenu(self,values=["GPT 3.5 Summarize","BART Summarize","Google T5 Summarize"],command=self.summary_menu_action)
         self.summary_menu.set("BART Summarize")
-        self.summary_menu.grid(row=0,column=1,padx=20,pady=20,columnspan=2,sticky='w')
+        self.summary_menu.grid(row=0,column=1,columnspan=2,sticky='w')
 
         self.textbox=customtkinter.CTkTextbox(self,height=text_box_height,width=text_box_width,wrap='word')
         self.textbox.bind("<KeyRelease>",self.autocompleter)
-        self.textbox.bind("<2>",self.accept_suggestion)
-        self.textbox.grid(row=3,column=0,padx=20,pady=0,sticky="ew",columnspan=5)
+        self.textbox.bind("<3>",self.accept_suggestion)
+        self.textbox.grid(row=3,column=0,sticky="ew",columnspan=5)
 
-        self.file_name_textbox=customtkinter.CTkEntry(self,height=14,placeholder_text="Enter File Name To Save As",corner_radius=10)
-        self.file_name_textbox.grid(row=0,column=3,padx=20,pady=20,sticky="ew",columnspan=2)
+        self.file_name_textbox=customtkinter.CTkEntry(self,height=14,placeholder_text="File Name To Save As")
+        self.file_name_textbox.grid(row=0,column=4,padx=30,sticky="ew")
         self.file_name_textbox.bind("<Return>",self.saver)
         
 
         self.summary_var=customtkinter.StringVar()
-        self.summary_display = customtkinter.CTkLabel(self, textvariable=self.summary_var,wraplength=800,justify='left')
+        self.summary_display = customtkinter.CTkLabel(self, textvariable=self.summary_var,wraplength=self.winfo_screenwidth(),justify='left')
         self.summary_var.set("Summary: ")
-        self.summary_display.grid(row=1,column=0,padx=20,pady=20,columnspan=5,sticky='w')
+        self.summary_display.grid(row=1,column=0,pady=20,padx=10,columnspan=5,sticky='w')
         
         self.autocomplete_var=customtkinter.StringVar()
         self.autocomplete_display = customtkinter.CTkLabel(self, textvariable=self.autocomplete_var,wraplength=display_width)
         self.autocomplete_var.set("Autocomplete: ")
-        self.autocomplete_display.grid(row=2,column=0,padx=20,pady=20,columnspan=1,sticky='w')
-app= App()
+        self.autocomplete_display.grid(row=2,column=0,pady=20,padx=10,columnspan=2,sticky='w')
+
+        self.theme_selector=customtkinter.CTkSegmentedButton(self,values=["Dark","Light","System"],command=self.themeswitcher)
+        self.theme_selector.set("Dark")
+        self.theme_selector.grid(row=2,column=4,padx=30,pady=20,sticky="ew")
+
+app = App()
 app.mainloop()
